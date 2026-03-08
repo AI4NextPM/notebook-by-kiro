@@ -1,0 +1,38 @@
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #a0aec0;
+  font-size: 18px;
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px;
+  gap: 12px;
+}
+
+.titleInput {
+  font-size: 20px;
+  font-weight: 600;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.contentArea {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  resize: none;
+  font-size: 14px;
+  line-height: 1.6;
+  background: var(--background);
+  color: var(--foreground);
+}

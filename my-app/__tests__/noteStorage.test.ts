@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+import fc from 'fast-check';
 import { saveNotes, loadNotes } from '@/app/lib/noteStorage';
 import { Note, STORAGE_KEY } from '@/app/lib/types';
 
@@ -109,5 +110,85 @@ describe('noteStorage', () => {
       });
       expect(loadNotes()).toEqual([]);
     });
+  });
+});
+
+
+// --- Arbitraries for property-based tests ---
+
+const noteArb: fc.Arbitrary<Note> = fc.record({
+  id: fc.uuid(),
+  title: fc.string(),
+  content: fc.string(),
+  createdAt: fc.date().map((d) => d.toISOString()),
+  updatedAt: fc.date().map((d) => d.toISOString()),
+});
+
+const notesArb: fc.Arbitrary<Note[]> = fc.array(noteArb, { minLength: 0, maxLength: 20 });
+
+// --- Property-based tests ---
+
+describe('noteStorage property tests', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    vi.restoreAllMocks();
+  });
+
+  /**
+   * Feature: notepad-app, Property 6: 序列化往返一致性
+   * For any valid Note array, saveNotes then loadNotes should return a deeply equal array.
+   * Validates: Requirements 5.1, 5.2, 5.3
+   */
+  it('Feature: notepad-app, Property 6: 序列化往返一致性', () => {
+    fc.assert(
+      fc.property(notesArb, (notes) => {
+        localStorage.clear();
+        saveNotes(notes);
+        const loaded = loadNotes();
+        expect(loaded).toEqual(notes);
+      }),
+      { numRuns: 100 }
+    );
+  });
+
+  /**
+   * Feature: notepad-app, Property 7: 无效数据的优雅降级
+   * For any arbitrary string written to localStorage, loadNotes should return an empty array
+   * and not throw an exception.
+   * Validates: Requirements 5.4
+   */
+  it('Feature: notepad-app, Property 7: 无效数据的优雅降级', () => {
+    fc.assert(
+      fc.property(
+        fc.string().filter((s) => {
+          // Exclude strings that happen to be valid JSON Note arrays
+          try {
+            const parsed = JSON.parse(s);
+            if (!Array.isArray(parsed)) return true;
+            const isValidNoteArray = parsed.every(
+              (item: unknown) =>
+                typeof item === 'object' &&
+                item !== null &&
+                typeof (item as Record<string, unknown>).id === 'string' &&
+                typeof (item as Record<string, unknown>).title === 'string' &&
+                typeof (item as Record<string, unknown>).content === 'string' &&
+                typeof (item as Record<string, unknown>).createdAt === 'string' &&
+                typeof (item as Record<string, unknown>).updatedAt === 'string'
+            );
+            return !isValidNoteArray;
+          } catch {
+            return true; // Invalid JSON is what we want
+          }
+        }),
+        (invalidData) => {
+          localStorage.clear();
+          vi.spyOn(console, 'error').mockImplementation(() => {});
+          localStorage.setItem(STORAGE_KEY, invalidData);
+          const result = loadNotes();
+          expect(result).toEqual([]);
+        }
+      ),
+      { numRuns: 100 }
+    );
   });
 });

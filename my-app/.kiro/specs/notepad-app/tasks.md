@@ -20,13 +20,13 @@
     - 编写 `__tests__/useNotes.test.ts`：包含 createNote、updateNote、deleteNote、selectNote 的单元测试
     - _需求: 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.2, 3.3, 5.1, 5.2, 5.4_
 
-  - [ ]* 2.2 编写 noteStorage 的属性测试
+  - [x] 2.2 编写 noteStorage 的属性测试
     - **Property 6: 序列化往返一致性** — 生成随机 Note 数组，saveNotes 后 loadNotes 验证等价性
     - **验证需求: 5.1, 5.2, 5.3**
     - **Property 7: 无效数据的优雅降级** — 生成随机非法字符串写入 localStorage，验证 loadNotes 返回空数组
     - **验证需求: 5.4**
 
-  - [ ]* 2.3 编写 useNotes Hook 的属性测试
+  - [x] 2.3 编写 useNotes Hook 的属性测试
     - **Property 1: 创建笔记的结构不变量** — 验证新笔记具有 UUID、空标题/内容、有效时间戳
     - **验证需求: 1.1, 1.2, 1.3**
     - **Property 2: 编辑笔记的持久化与时间戳更新** — 验证更新后字段值正确且 updatedAt 递增
@@ -43,17 +43,17 @@
     - 实现 `app/lib/useNotes.ts`：管理 notes 状态、selectedNoteId，提供 createNote/updateNote/deleteNote/selectNote 方法，启动时从 localStorage 加载，变更时同步保存
     - _需求: 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.2, 3.3, 4.2, 5.1, 5.2, 5.3, 5.4_
 
-- [ ] 3. 检查点 — 确保数据层测试全部通过
+- [x] 3. 检查点 — 确保数据层测试全部通过
   - 确保所有测试通过，如有问题请询问用户。
 
 - [ ] 4. UI 层：组件与主页面（TDD）
-  - [ ] 4.1 编写所有组件的测试
+  - [x] 4.1 编写所有组件的测试
     - 编写 `__tests__/components/ConfirmDialog.test.tsx`：测试 isOpen 控制渲染、确认/取消回调触发
     - 编写 `__tests__/components/NoteList.test.tsx`：测试笔记列表渲染（标题+时间）、空列表显示"暂无笔记"、新建按钮回调、删除按钮弹出确认对话框、选中高亮
     - 编写 `__tests__/components/NoteEditor.test.tsx`：测试无选中笔记时显示占位提示、编辑标题/内容触发 onUpdateNote 回调
     - _需求: 3.1, 4.1, 4.2, 4.3, 6.1_
 
-  - [ ] 4.2 实现所有组件和主页面，使所有测试通过
+  - [x] 4.2 实现所有组件和主页面，使所有测试通过
     - 实现 `app/components/ConfirmDialog.tsx` + `ConfirmDialog.module.css`：模态确认对话框
     - 实现 `app/components/NoteList.tsx` + `NoteList.module.css`：笔记列表（标题+修改时间、空列表提示、新建/删除按钮、选中状态）
     - 实现 `app/components/NoteEditor.tsx` + `NoteEditor.module.css`：笔记编辑器（标题输入框+内容文本域、占位提示）
@@ -61,7 +61,7 @@
     - 更新 `app/layout.tsx`：设置页面标题和基础样式
     - _需求: 1.1, 2.3, 3.1, 3.2, 3.3, 4.1, 4.2, 4.3, 6.1, 6.2, 6.3_
 
-- [ ] 5. 最终检查点 — 确保所有测试通过
+- [x] 5. 最终检查点 — 确保所有测试通过
   - 确保所有测试通过，如有问题请询问用户。
 
 ## 备注
