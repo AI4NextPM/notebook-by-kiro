@@ -6,7 +6,7 @@
 
 ## Tasks
 
-- [ ] 1. 项目初始化与基础设施搭建
+- [x] 1. 项目初始化与基础设施搭建
   - 创建 Next.js v16 项目（App Router + TypeScript）
   - 安装测试依赖：vitest、@testing-library/react、@testing-library/jest-dom、fast-check、jsdom
   - 配置 vitest.config.ts（jsdom 环境、路径别名）
