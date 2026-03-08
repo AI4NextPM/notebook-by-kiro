@@ -14,8 +14,8 @@
   - 创建基础目录结构：`app/components/`、`app/lib/`、`__tests__/`、`__tests__/components/`
   - _需求: 6.3, 5.1_
 
-- [ ] 2. 数据层：noteStorage 模块和 useNotes Hook（TDD）
-  - [ ] 2.1 编写 noteStorage 和 useNotes 的全部测试
+- [x] 2. 数据层：noteStorage 模块和 useNotes Hook（TDD）
+  - [x] 2.1 编写 noteStorage 和 useNotes 的全部测试
     - 编写 `__tests__/noteStorage.test.ts`：包含 saveNotes/loadNotes 的单元测试（空数组、正常数据、无效数据、localStorage 不可用）
     - 编写 `__tests__/useNotes.test.ts`：包含 createNote、updateNote、deleteNote、selectNote 的单元测试
     - _需求: 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.2, 3.3, 5.1, 5.2, 5.4_
@@ -38,7 +38,7 @@
     - **Property 5: 笔记列表按修改时间降序排列** — 验证 notes 数组排序正确
     - **验证需求: 4.2**
 
-  - [ ] 2.4 实现 noteStorage 模块和 useNotes Hook，使所有测试通过
+  - [x] 2.4 实现 noteStorage 模块和 useNotes Hook，使所有测试通过
     - 实现 `app/lib/noteStorage.ts`：saveNotes（JSON 序列化写入 localStorage）、loadNotes（读取反序列化 + 数据验证 + 错误处理）
     - 实现 `app/lib/useNotes.ts`：管理 notes 状态、selectedNoteId，提供 createNote/updateNote/deleteNote/selectNote 方法，启动时从 localStorage 加载，变更时同步保存
     - _需求: 1.1, 1.2, 1.3, 2.1, 2.2, 2.3, 3.2, 3.3, 4.2, 5.1, 5.2, 5.3, 5.4_

@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Document Sync",
+  "description": "监听TypeScript源文件、配置文件以及其他相关的项目文件。当检测到更改时，触发README.md或docs文件夹中的文档更新，以保持文档与代码更改同步。",
+  "when": {
+    "type": "postTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "帮我更新文档"
+  },
+  "workspaceFolderName": "my-app",
+  "shortName": "document-sync"
+}
